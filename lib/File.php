@@ -9,26 +9,24 @@
  */
 class File
 {
-    private $tmpDir;
+    private $tempDir = "../temp/";
     
     public function setTempDir($dir)
     {
         $this->tempDir = $dir;
     }
 
-    public function getRemoteFile()
+    public function getRemoteFile($url, $dest)
     {
-        
-    }
-    
-    public function createTempFile()
-    {
-        
-    }
-    
-    public function deleteFile()
-    {
-        
+        // May require allow_url_fopen to be enabled in php.ini
+        $remote = file_get_contents($url);
+        if (!empty($remote)) {
+            file_put_contents($dest, $remote);
+            return true;
+        } else {
+            throw new Exception("Unable to retrieve remote file.");
+        }
+
     }
 
     /**
@@ -65,8 +63,16 @@ class File
      */
     public function isPdf($file)
     {
-        $result = (is_file($file)? true : false);
-        $result = ((strtolower(substr($file, -3)) == "pdf") ? : false);
+        $result =  true;
+
+        if (!is_file($file)) {
+            $result = false;
+        }
+
+        if (strtolower(substr($file, -3)) != "pdf") {
+            $result = false;
+        }
+
         return $result;
     }
 }

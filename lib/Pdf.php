@@ -1,14 +1,12 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: embryb
+ * User: Bryce Embry
  * Date: 3/28/2016
  * Time: 1:06 PM
  */
 class Pdf
 {
-
     private $bin;
 
     /**
@@ -20,7 +18,6 @@ class Pdf
     {
         $this->bin = $path . $bin;
     }
-
     
     public function getFields($file)
     {
