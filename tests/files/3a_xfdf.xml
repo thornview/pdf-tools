@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xfdf xmlns="http://ns.adobe.com/xfdf/">
+<fields>
+<field name="Name">
+<value>Ralph the Mouse</value>
+</field>
+<field name="Telephone">
+<value>Yes, we have one of those</value>
+</field>
+<field name="PI State">
+<value>Very sober</value>
+</field>
+</fields>
+</xfdf>

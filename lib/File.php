@@ -16,6 +16,12 @@ class File
         $this->tempDir = $dir;
     }
 
+    /**
+     * @param $url - URL to file
+     * @param $dest - Path and filename for downloaded file
+     * @return bool
+     * @throws Exception
+     */
     public function getRemoteFile($url, $dest)
     {
         // May require allow_url_fopen to be enabled in php.ini
@@ -37,6 +43,9 @@ class File
      */
     public function createRandomTempFile($ext)
     {
+        if (substr($ext, 0, 1) == ".") {
+            $ext = substr($ext, 1);
+        }
         $name = rand(10000, 999999) . "FILE" . time() . ".$ext";
         $file = $this->tempDir . $name;
         touch($file);
@@ -61,7 +70,7 @@ class File
      * @param $file
      * @return bool
      */
-    public function isPdf($file)
+    public function verifyPdf($file)
     {
         $result =  true;
 
