@@ -1,4 +1,5 @@
 <?php
+namespace PdfTool;
 
 /**
  * Manages files
@@ -9,7 +10,12 @@
  */
 class File
 {
-    private $tempDir = "../temp/";
+    private $tempDir;
+
+    public function __construct()
+    {
+        $this->tempDir = $_SERVER['DOCUMENT_ROOT']."/pdf-tool/temp/";
+    }
     
     public function setTempDir($dir)
     {
@@ -30,9 +36,29 @@ class File
             file_put_contents($dest, $remote);
             return true;
         } else {
-            throw new Exception("Unable to retrieve remote file.");
+            throw new \Exception("Unable to retrieve remote file.");
         }
 
+    }
+
+    public function uploadFile($var, $dir, $rename = false)
+    {
+        if (empty($_FILES)) {
+            return "ERROR";
+        } else {
+            if ($rename == true) {
+                $dest = $this->createRandomTempFile(".pdf");
+            } else {
+                $filename = $_FILES[$var]['name'];
+                $file = str_replace(' ', '', $filename);
+                $dest = $dir . $file;
+            }
+            if (move_uploaded_file($_FILES[$var]['tmp_name'], $dest)) {
+                return $dest;
+            } else {
+                return "ERROR";
+            }
+        }
     }
 
     /**
@@ -73,10 +99,6 @@ class File
     public function verifyPdf($file)
     {
         $result =  true;
-
-        if (!is_file($file)) {
-            $result = false;
-        }
 
         if (strtolower(substr($file, -3)) != "pdf") {
             $result = false;

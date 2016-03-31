@@ -1,4 +1,5 @@
 <?php
+namespace PdfTool;
 
 /**
  * User: Bryce Embry
@@ -18,8 +19,16 @@ class Pdf
     {
         $this->bin = $path . $bin;
     }
-    
-    public function getFields($file, $format = null)
+
+    /**
+     * Returns the results of the pdftk dump_data_fields in
+     *  requested format
+     * @param string $file
+     * @param string null $format
+     * @return array|string
+     * @throws Exception
+     */
+    public function getFields($file, $format = 'json')
     {
         $f = new File();
         if ($f->verifyPdf($file)) {
@@ -38,30 +47,33 @@ class Pdf
                 return $result;
             }
         }
-        throw new Exception("Unable to get fields from $file.");
+        return "ERROR";
     }
 
-    public function fillForm($pdf, array $data)
+    /**
+     * Return PDF filling form with provided data
+     * @param $pdf - The PDF form to be filled out
+     * @param $json - A json file of fielname / value pairs
+     * @return string
+     * @throws Exception
+     */
+    public function fillForm($pdf, $json)
     {
         // Convert data to xml file
         $f = new File();
-        $xmlFile = $f->createRandomTempFile(".xml");
+        $xmlFile = $f->createRandomTempFile("xml");
         $pdfOut = $f->createRandomTempFile("pdf");
+        $data = json_decode($json, true);
         $this->createXfdf($data, $xmlFile);
 
-        // return pdf form
+        // PDFtk command
         $cmd = $this->bin . " " . $pdf . " ";
         $cmd .= "fill_form " . $xmlFile . " ";
         $cmd .= "output " . $pdfOut;
         
         system($cmd);
-        
+        $f->cleanUp($xmlFile);
         return $pdfOut;
-    }
-
-    public function groupFiles()
-    {
-
     }
 
     /**

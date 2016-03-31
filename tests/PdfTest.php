@@ -48,8 +48,9 @@ class PdfTest extends PHPUnit_Framework_TestCase
             "Telephone" => "Yes, we have one of those",
             "PI State" => "Very sober"
         );
-        $output = $p->fillForm("./files/3a.pdf", $data);
-        $this->assertSame("fred", $output);
-
+        $json = json_encode($data);
+        $output = $p->fillForm("./files/3a.pdf", $json);
+        $this->assertFileExists($output);
+        unlink($output);
     }
 }

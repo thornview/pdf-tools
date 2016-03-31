@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Tools</title>
+</head>
+<body>
+<h1>PDF Tools</h1>
+<h2>/form/fill</h2>
+Send a Post, get back a file.
+<ul>
+    <li>form= Your pdf file</li>
+    <li>data = json file mapping fields to values</li>
+</ul>
+<h2>/form/describe</h2>
+Send a Post, receive JSON data
+<ul>
+    <li>form = Your pdf file</li>
+</ul>
+
+<h2>/form/selfreport</h2>
+Handy tool for identifying field names.  Given a PDF form, this will return the same
+form with official field name filled into each field.  Unfortunately, does not work with
+checkboxes.
+<ul>
+    <li>form = Upload of your PDF form</li>
+</ul>
+</body>
+</html>
