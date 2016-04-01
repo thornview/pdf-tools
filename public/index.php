@@ -1,21 +1,24 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
 $app = new Silex\Application();
 
+// ----- FORM/UPLOAD ----------------------------------------------
 $app->post('/form/upload', function(Request $request) {
     $f = new PdfTool\File();
     $dir = $_SERVER['DOCUMENT_ROOT']. "/pdf-tool/forms/";
-    return $f->uploadFile('form', $dir);
+    return $f->uploadFile('form', true);
 });
 
+//----- FORM/FILL -------------------------------------------------
 $app->post('/form/fill', function(Request $request) use($app) {
     $f = new PdfTool\File();
     $newfile = false; 
     if (!empty($_FILES)) {
-        $file = $f->uploadFile('form', 'temp', true);
+        $file = $f->uploadFile('form');
         $newfile = true;
     } else {
         $file = $request->get('form');
@@ -30,46 +33,51 @@ $app->post('/form/fill', function(Request $request) use($app) {
         }
         return $app->sendFile($result);
     } else {
-        return "ERROR";
+        return PdfTool\Error::message("Error generating form");
     }
 });
 
+// ----- FORM/DESCRIBE -------------------------------------------
 $app->post('/form/describe', function(Request $request) {
     $f = new PdfTool\File();
     if (!empty($_FILES)) {
-        $file = $f->uploadFile('form', 'temp', true);   
+        $file = $f->uploadFile('form');
     } else {
         $file = $request->get('form');
     }
     $p = new PdfTool\Pdf();
-    $json = $p->getFields($file, 'json');
+    $json = $p->getFields($file);
     $f->cleanUp($file);
     return $json;
 });
 
+// ----- FORM/SELFREPORT ------------------------------------------
 $app->post('/form/selfreport', function() use($app){
-   // Return a PDF of the Form PDF with each field filled in with its field name
     $f = new PdfTool\File();
     $p = new PdfTool\Pdf();
-    // Get the file
-    $file = $f->uploadFile('form', 'temp', true);
-
-    // Get JSON of the fields
-    $json = $p->getFields($file, 'json');
-
-    // Create new JSON - fieldName = FieldName
-    $map = array();
-    $data = json_decode($json, true);
-    foreach ($data as $entry=>$detail) {
-        $field = $detail['FieldName'];
-        $map[$field] = $field;
+    $file = $f->uploadFile('form');
+    if (is_file($file)) {
+        $json = $p->getFields($file);
+        $data = json_decode($json, true);
+        if (key_exists('ERROR', $data)) {
+            return $json; // $json would be json with error message
+        } else {
+            $map = array();
+            foreach ($data as $entry => $detail) {
+                $field = $detail['FieldName'];
+                $map[$field] = $field;
+            }
+            $jmap = json_encode($map);
+            $result = $p->fillForm($file, $jmap);
+            return $app->sendFile($result);
+        }
+    } else {
+        return $file; // $file would be json with error message
     }
-    $jmap = json_encode($map);
-    // Merge
-    $result = $p->fillForm($file, $jmap);
-    return $app->sendFile($result);
+
 });
 
+// ----- DOCUMENTATION ------------------------------------------------
 $app->get('/', function(){
     $html = file_get_contents('./documentation.html');
     return $html;

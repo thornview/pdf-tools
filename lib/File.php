@@ -10,53 +10,30 @@ namespace PdfTool;
  */
 class File
 {
-    private $tempDir;
-
-    public function __construct()
-    {
-        $this->tempDir = $_SERVER['DOCUMENT_ROOT']."/pdf-tool/temp/";
-    }
-    
-    public function setTempDir($dir)
-    {
-        $this->tempDir = $dir;
-    }
-
     /**
-     * @param $url - URL to file
-     * @param $dest - Path and filename for downloaded file
-     * @return bool
-     * @throws Exception
+     * Get posted file and move from php temp dir to designated location
+     * @param string $var Name of the upload field
+     * @param bool $save
+     * @return string
      */
-    public function getRemoteFile($url, $dest)
-    {
-        // May require allow_url_fopen to be enabled in php.ini
-        $remote = file_get_contents($url);
-        if (!empty($remote)) {
-            file_put_contents($dest, $remote);
-            return true;
-        } else {
-            throw new \Exception("Unable to retrieve remote file.");
-        }
-
-    }
-
-    public function uploadFile($var, $dir, $rename = false)
+    public function uploadFile($var, $save = false)
     {
         if (empty($_FILES)) {
-            return "ERROR";
+            return Error::message("Not provided with a file to be uploaded.");
+        } elseif ($this->verifyPdf($_FILES[$var]['tmp_name']) === false) {
+            return Error::message("PDFTool will only allow upload of PDF files.");
         } else {
-            if ($rename == true) {
-                $dest = $this->createRandomTempFile(".pdf");
+            if ($save == false) {
+                return $_FILES[$var]['tmp_name'];
             } else {
                 $filename = $_FILES[$var]['name'];
-                $file = str_replace(' ', '', $filename);
-                $dest = $dir . $file;
-            }
-            if (move_uploaded_file($_FILES[$var]['tmp_name'], $dest)) {
-                return $dest;
-            } else {
-                return "ERROR";
+                $file = strtolower(str_replace(' ', '', $filename));
+                $dest = FORM_PATH . $file;
+                if(move_uploaded_file($_FILES[$var]['tmp_name'], $dest)) {
+                    return $dest;
+                } else {
+                    return Error::message("Error saving uploaded file to server");
+                }
             }
         }
     }
@@ -65,7 +42,6 @@ class File
      * Create a temp file
      * @param $ext
      * @return string
-     * @throws Exception
      */
     public function createRandomTempFile($ext)
     {
@@ -73,12 +49,12 @@ class File
             $ext = substr($ext, 1);
         }
         $name = rand(10000, 999999) . "FILE" . time() . ".$ext";
-        $file = $this->tempDir . $name;
+        $file = TEMP_PATH . $name;
         touch($file);
         if (file_exists($file)) {
             return $file;
         } else {
-            throw new Exception("Unable to create new file at " . $this->tempDir);
+            return Error::message("Unable to create new file at " . TEMP_PATH);
         }
     }
 
@@ -92,18 +68,18 @@ class File
     }
 
     /**
-     * Confirms that file exists and has PDF extension
+     * Checks mime type of file to assure it's a PDF
      * @param $file
      * @return bool
      */
     public function verifyPdf($file)
     {
-        $result =  true;
-
-        if (strtolower(substr($file, -3)) != "pdf") {
-            $result = false;
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = strtolower(finfo_file($finfo, $file));
+        if (strpos($mime, "pdf") === false) {
+            return false;
+        } else {
+            return true;
         }
-
-        return $result;
     }
 }
