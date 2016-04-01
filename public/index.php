@@ -16,22 +16,17 @@ $app->post('/form/upload', function(Request $request) {
 //----- FORM/FILL -------------------------------------------------
 $app->post('/form/fill', function(Request $request) use($app) {
     $f = new PdfTool\File();
-    $newfile = false; 
-    if (!empty($_FILES)) {
-        $file = $f->uploadFile('form');
-        $newfile = true;
+    if (empty($_FILES)) {
+        $file = FORM_PATH . $request->get('form');
     } else {
-        $file = $request->get('form');
+        $file = $f->uploadFile('form');
     }
     $data = $request->get('data');
     $p = new PdfTool\Pdf();
-    // Need to validate that the fields in the form match the fields in the data set
     $result = $p->fillForm($file, $data);
     if (is_file($result)) {
-        if ($newfile) {
-            $f->cleanUp($file);
-        }
-        return $app->sendFile($result);
+        return $app->sendFile($result)
+            ->deleteFileAfterSend(true);
     } else {
         return PdfTool\Error::message("Error generating form");
     }
@@ -69,12 +64,12 @@ $app->post('/form/selfreport', function() use($app){
             }
             $jmap = json_encode($map);
             $result = $p->fillForm($file, $jmap);
-            return $app->sendFile($result);
+            return $app->sendFile($result)
+                ->deleteFileAfterSend(true);
         }
     } else {
         return $file; // $file would be json with error message
     }
-
 });
 
 // ----- DOCUMENTATION ------------------------------------------------

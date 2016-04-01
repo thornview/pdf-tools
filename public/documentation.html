@@ -3,27 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <title>PDF Tools</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            background-color: #423b3b; }
+
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            width: 1000px;
+            border: 1px solid grey;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 5px 5px 10px #291718;
+            background-color: white;
+            /*color: #0f303e;*/
+        }
+
+        h1 {
+            font-family: 'Source Code Pro', monospace;
+            color: #d4c7c7;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Source Code Pro', monospace;
+            background-color: #c9c2c0;
+            padding: 3px;
+            border-radius: 7px;
+            margin-top: 25px;
+            margin-bottom: 5px;
+            color: #9c0000;
+        }
+        .code {
+            font-family: 'Source Code Pro', monospace;
+            background-color: #e5dddb;
+            padding: 2px;
+        }
+        .subhead {
+            font-family: 'Source Sans Pro', sans-serif; 
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .inset {
+            margin-left: 25px;
+        }
+    </style>
 </head>
 <body>
-<h1>PDF Tools</h1>
-<h2>/form/fill</h2>
-Send a Post, get back a file.
-<ul>
-    <li>form= Your pdf file</li>
-    <li>data = json file mapping fields to values</li>
-</ul>
-<h2>/form/describe</h2>
-Send a Post, receive JSON data
-<ul>
-    <li>form = Your pdf file</li>
-</ul>
+<h1>PDF Toolset</h1>
 
-<h2>/form/selfreport</h2>
-Handy tool for identifying field names.  Given a PDF form, this will return the same
-form with official field name filled into each field.  Unfortunately, does not work with
-checkboxes.
-<ul>
-    <li>form = Upload of your PDF form</li>
-</ul>
+<div class="container">
+    <p>PDF Toolset provides a RESTful web API for various PDF processing tasks.  The idea was to find good
+    PDF manipulation binaries, install them in a Linux container, then make them available via
+    a web interface.  This way we don't have to install the binaries on each instance of the web
+    applications we use.
+    </p>
+
+
+    <h2>/form/fill</h2>
+    Provide a PDF form and a json map of the data you want in the fields, returns filled out PDF form.
+    <div class="subhead">Requires</div>
+        <div class="inset">
+            <span class="code">form</span> Your pdf file, either a file you are uploading with this request,
+            or the name of a local file you previously uploaded to the server.
+        </div>
+        <div class="inset">
+            <span class="code">data</span> json map of form fields to values.
+            If your json map does not match any fields
+            in the form, the system will simply return a blank form.
+        </div>
+    <div class="subhead">Returns</div>
+        <div class="inset">
+            PDF file, or JSON object with error message
+        </div>
+    
+    <h2>/form/describe</h2>
+        Provide a PDF form and receive a json description of all the fields in the form.
+        <div class="subhead">Requires</div>
+            <div class="inset">
+                <span class="code">form</span> Your pdf file, either uploaded copy, or path to a local copy
+            </div>
+        <div class="subhead">Returns</div>
+            <div class="inset">JSON object.</div>
+
+    <h2>/form/selfreport</h2>
+        Given a PDF form, this method will return the same form with official field name filled
+        into each field.  Unfortunately, does not work with checkboxes.
+        <div class="subhead">Requires</div>
+            <div class="inset">
+                <span class="code">form</span> = Upload of your PDF form
+            </div>
+        <div class="subhead">Returns</div>
+            <div class="inset">PDF File, or JSON object with error message.</div>
+
+    <h2>/form/upload</h2>
+        Uploads a form for storage on the server.  If you have a form being using repeatedly it
+        makes more sense to store it on the server.
+        <div class="subhead">Requires</div>
+            <div class="inset">
+                <span class="code">form</span> = Upload of your PDF form
+            </div>
+        <div class="subhead">Returns</div>
+            <div class="inset">
+                JSON object with {"FILENAME" : "Name of your file on the server"}.
+                To use this file in future calls, reference it by name.  For example,
+                if the filename on the server is "foo.pdf", then your form may include:
+                <span class="code">&lt;input type="hidden" name="form" value="foo.pdf"&gt;</span>
+                PDF Toolbar will note that that form does not include an uploaded file and will
+                search its local file storage for a file with the given name.
+            </div>
+
+    <h2>Error Handling</h2>
+    If PDF Toolset is unable to process your file, it should send back a json object that looks like this:
+    <div class="code">{"ERROR" : "Message describing the error"}</div>
+
+    <h2>Client Side Notes</h2>
+    <div class="subhead">Forms:</div>
+    Be sure to include the "enctype" declaration in your form.
+    <div class="code">&lt;form method="post" enctype="multipart/form-data"&gt;</div>
+
+</div>
 </body>
 </html>

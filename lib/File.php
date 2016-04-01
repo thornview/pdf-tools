@@ -22,18 +22,16 @@ class File
             return Error::message("Not provided with a file to be uploaded.");
         } elseif ($this->verifyPdf($_FILES[$var]['tmp_name']) === false) {
             return Error::message("PDFTool will only allow upload of PDF files.");
+        } elseif ($save == false) {
+            return $_FILES[$var]['tmp_name'];
         } else {
-            if ($save == false) {
-                return $_FILES[$var]['tmp_name'];
+            $filename = $_FILES[$var]['name'];
+            $file = strtolower(str_replace(' ', '', $filename));
+            $dest = FORM_PATH . $file;
+            if(move_uploaded_file($_FILES[$var]['tmp_name'], $dest)) {
+                return json_encode(array("FILENAME" => $file));
             } else {
-                $filename = $_FILES[$var]['name'];
-                $file = strtolower(str_replace(' ', '', $filename));
-                $dest = FORM_PATH . $file;
-                if(move_uploaded_file($_FILES[$var]['tmp_name'], $dest)) {
-                    return $dest;
-                } else {
-                    return Error::message("Error saving uploaded file to server");
-                }
+                return Error::message("Error saving uploaded file to server");
             }
         }
     }
