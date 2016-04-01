@@ -12,7 +12,6 @@ class Pdf
      * Returns the results of the pdftk dump_data_fields in
      *  requested format
      * @param string $file
-     * @param string null $format
      * @return array|string
      */
     public function getFields($file)
@@ -60,7 +59,6 @@ class Pdf
     /**
      *
      * @param $list - Original dump_data_fields output from pdftk
-     * @param null $format - 'json' or 'php'
      * @return array|string
      */
     public function convertFieldList($list)

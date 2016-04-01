@@ -7,9 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 $app = new Silex\Application();
 
 // ----- FORM/UPLOAD ----------------------------------------------
-$app->post('/form/upload', function(Request $request) {
+$app->post('/form/upload', function() {
     $f = new PdfTool\File();
-    $dir = $_SERVER['DOCUMENT_ROOT']. "/pdf-tool/forms/";
     return $f->uploadFile('form', true);
 });
 
