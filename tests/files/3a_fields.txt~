@@ -1,0 +1,261 @@
+---
+FieldType: Text
+FieldName: Subaward Number
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: Name
+FieldFlags: 0
+FieldValue: Vanderbilt University Medical Center
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: Telephone
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI Name
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI address 1
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI City
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI State
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI Zip
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI fax
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI email
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI address 2
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PI address 3
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC Name
+FieldFlags: 0
+FieldValue: Steve Todd
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC City
+FieldFlags: 0
+FieldValue: Nashville
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC Phone
+FieldFlags: 0
+FieldValue: 615-322-3293
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC Fax
+FieldFlags: 0
+FieldValue: 615-343-3616
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC email
+FieldFlags: 0
+FieldValue: steve.todd@vanderbilt.edu
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO name
+FieldFlags: 0
+FieldValue: Libby D. Salberg
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC address 1
+FieldFlags: 0
+FieldValue: VUMC Finance, Academic and Research Enterprise
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC address 2
+FieldFlags: 0
+FieldValue: 3319 West End Avenue, Suite 800
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC address 3
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO addresss1
+FieldFlags: 0
+FieldValue: Office of Contracts Management
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO address 2
+FieldFlags: 0
+FieldValue: 3319 West End Avenue, Suite 100
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO address 3
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC State
+FieldFlags: 0
+FieldValue: TN
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: FC Zip
+FieldFlags: 0
+FieldValue: 37203
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: OA City
+FieldFlags: 0
+FieldValue: Nashville
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: OA State
+FieldFlags: 0
+FieldValue: TN
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO zip
+FieldFlags: 0
+FieldValue: 37203
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO Phone
+FieldFlags: 0
+FieldValue: 615-322-7400
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO fax
+FieldFlags: 0
+FieldValue: 615-343-8657
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: AO email
+FieldFlags: 0
+FieldValue: research.contracts@vanderbilt.edu
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin name
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin address 1
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin address 2
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin address 3
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PTE City
+FieldFlags: 0
+FieldValue: Nashville
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PTE State
+FieldFlags: 0
+FieldValue: TN
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: PTE Zip code
+FieldFlags: 0
+FieldValue: 37232-1161
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: Admin City
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: Admin State
+FieldFlags: 0
+FieldValue: TN
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: Admni Zip Code
+FieldFlags: 0
+FieldValue: 37212
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin Telephone
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin fax
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: admin email
+FieldFlags: 0
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: address#0
+FieldFlags: 0
+FieldValue: 1161 21st Avenue South
+FieldJustification: Left
+---
+FieldType: Text
+FieldName: address#1
+FieldFlags: 0
+FieldJustification: Left
+
