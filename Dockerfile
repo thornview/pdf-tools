@@ -1,5 +1,4 @@
 FROM php:5.6-apache
-COPY config/bootstrap.php /var/www/html/
 COPY forms/ /var/www/html/forms/
 COPY lib/ /var/www/html/lib/
 COPY public/ /var/www/html/public/
