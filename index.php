@@ -1,6 +1,10 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . './vendor/autoload.php';
+define("TEMP_PATH", __DIR__ . "/temp/");
+define("FORM_PATH", __DIR__ . "/forms/");
+
+// define path to PDFtk binary, if needed
+define("PDFTK", "pdftk");
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -73,7 +77,7 @@ $app->post('/form/selfreport', function() use($app){
 
 // ----- DOCUMENTATION ------------------------------------------------
 $app->get('/', function(){
-    $html = file_get_contents('./documentation.html');
+    $html = file_get_contents('./public/documentation.html');
     return $html;
 });
 
