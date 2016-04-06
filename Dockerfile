@@ -1,11 +1,13 @@
 FROM php:5.6-apache
-COPY pdf-tools/ /var/www/html/
+COPY bootstrap.php /var/www/html/
+COPY forms/ /var/www/html/forms/
+COPY lib/ /var/www/html/lib/
+COPY public/ /var/www/html/public/
+COPY temp/ /var/www/html/temp/
+COPY vendor/ /var/www/html/vendor/
 COPY php.ini /usr/local/etc/php/
 
-#RUN apt-get update && apt-get -y install build-essential gcj-jdk unzip wget
-#RUN wget http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/pdftk-2.02-src.zip && unzip pdftk-2.02-src.zip
-#RUN sed -i 's/VERSUFF=-4.6/VERSUFF=-4.9/g' pdftk-2.02-dist/pdftk/Makefile.Debian
-#RUN cd pdftk-2.02-dist/pdftk && make -f Makefile.Debian && make -f Makefile.Debian install
-#RUN rm -rf pdftk-2.02-dist pdftk-2.02-src.zip && apt-get clean
 RUN apt-get update && apt-get -y install pdftk
+
 RUN chmod 777 /var/www/html/temp/
+RUN chmod 777 /var/www/html/forms/
