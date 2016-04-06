@@ -1,5 +1,6 @@
 FROM php:5.6-apache
 COPY forms/ /var/www/html/forms/
+COPY .htaccess /var/www/html/
 COPY lib/ /var/www/html/lib/
 COPY public/ /var/www/html/public/
 COPY temp/ /var/www/html/temp/
