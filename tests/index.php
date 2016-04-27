@@ -2,21 +2,29 @@
 <html>
 <head>
     <title>
-        ScRAtChpAd
+        Testing
     </title>
     <style>
+        body {
+            background-color: #9bc2c2;
+        }
         .box {
-            border: 1px solid #cd5c5c;
+            border: 1px solid #003333;
             border-radius: 20px;
             padding: 10px;
             margin-top: 20px;
             width: 45%;
             display: inline-block;
+            background-color: #fff;
+        }
+        h1, h2 {
+            font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+            color: #0d4d4d;
         }
     </style>
 </head>
 <body>
-<h1>Form Interface for Debugging</h1>
+<h1>Implementation Examples</h1>
 <div>
       <div class="box">
         <h2>Form/Fill (upload user file)</h2>

@@ -4,129 +4,138 @@
     <meta charset="UTF-8">
     <title>PDF Tools</title>
     <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro' rel='stylesheet' type='text/css'>
-    <style>
-        body {
-            background-color: #423b3b;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-
-        .container {
-            margin-left: auto;
-            margin-right: auto;
-            width: 1000px;
-            border: 1px solid grey;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 5px 5px 10px #291718;
-            background-color: white;
-            /*color: #0f303e;*/
-        }
-
-        h1 {
-            font-family: 'Source Code Pro', monospace;
-            color: #d4c7c7;
-            text-align: center;
-        }
-
-        h2 {
-            font-family: 'Source Code Pro', monospace;
-            background-color: #c9c2c0;
-            padding: 3px;
-            border-radius: 7px;
-            margin-top: 30px;
-            margin-bottom: 5px;
-            color: #9c0000;
-        }
-        .code {
-            font-family: 'Source Code Pro', monospace;
-            background-color: #e5dddb;
-            padding: 2px;
-        }
-        .subhead {
-            font-family: 'Source Sans Pro', sans-serif; 
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-top: 10px;
-            margin-bottom: 0;
-        }
-
-        .inset {
-            margin-left: 25px;
-        }
-    </style>
+<link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 <h1>PDF Toolset</h1>
 
 <div class="container">
-    <p>PDF Toolset provides a RESTful web API for various PDF processing tasks.  The idea was to find good
-    PDF manipulation binaries, install them in a Linux container, then make them available via
-    a web interface.  This way we don't have to install the binaries on each instance of the web
-    applications we use.
+    <p>PDF Tools provides a RESTful web API for the best freely-available PDF processing
+        binaries.  RESTful routes are listed below.
     </p>
 
+    <div class="box">
+        <h2>/form/fill</h2>
+        Uses <a href="https://www.pdflabs.com/tools/pdftk-server/">PDFtk Server</a>
+        to fill a PDF form with data.
+        Provide a PDF form and a JSON object that maps the form fields with the desired
+        data, and PDF Tools will return a filled out PDF form.  Unfortunately,
+        this does not work with checkboxes.
+        <div class="subhead">SAMPLE IMPLEMENTATION</div>
+        <div class="codebox">
+            &lt;form action="pdf-tool/index.php/form/fill" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
+            &lt;input name="<b>form</b>" type="file"&gt;<br>
+            &lt;input name="<b>data</b>" type="hidden" value="&lt;?php echo json_encode($data); ?&gt;"&gt;<br>
+            &lt;/form&gt;
+        </div>
 
-    <h2>/form/fill</h2>
-    Provide a PDF form and a json map of the data you want in the fields, returns filled out PDF form.
-    <div class="subhead">Requires</div>
-        <div class="inset">
-            <span class="code">form</span> Your pdf file, either a file you are uploading with this request,
-            or the name of a local file you previously uploaded to the server.
-        </div>
-        <div class="inset">
-            <span class="code">data</span> json map of form fields to values.
-            If your json map does not match any fields
-            in the form, the system will simply return a blank form.
-        </div>
-    <div class="subhead">Returns</div>
-        <div class="inset">
-            PDF file, or JSON object with error message
-        </div>
-    
-    <h2>/form/describe</h2>
-        Provide a PDF form and receive a json description of all the fields in the form.
-        <div class="subhead">Requires</div>
-            <div class="inset">
-                <span class="code">form</span> Your pdf file, either uploaded copy, or path to a local copy
+            <div class="subtle">
+                * If your JSON map does not match any fields
+                in the PDF file, the system will simply return a blank form.
             </div>
-        <div class="subhead">Returns</div>
-            <div class="inset">JSON object.</div>
+        <div class="subhead">REQUIRES</div>
+        <ul>
+            <li><span class="code"><b>form</b></span> - PDF file</li>
+            <li><span class="code"><b>data</b></span> - JSON map</li>
+        </ul>
+        <div class="subhead">RETURNS</div>
+            PDF file
+    </div>
 
-    <h2>/form/selfreport</h2>
-        Given a PDF form, this method will return the same form with official field name filled
-        into each field.  Unfortunately, does not work with checkboxes.
-        <div class="subhead">Requires</div>
-            <div class="inset">
-                <span class="code">form</span> = Upload of your PDF form
-            </div>
-        <div class="subhead">Returns</div>
-            <div class="inset">PDF File, or JSON object with error message.</div>
+    <div class="box">
+        <h2>/form/describe</h2>
+        Uses <a href="https://www.pdflabs.com/tools/pdftk-server/">PDFtk Server</a>
+        to identify all of the fields in a PDF form.
+        <div class="subhead">SAMPLE IMPLEMENTATION</div>
+        <div class="codebox">
+            &lt;form action="pdf-tool/index.php/form/describe" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
+            &lt;input name="<b>form</b>" type="file"&gt;<br>
+            &lt;/form&gt;
+        </div>
+        <div class="subhead">REQUIRES</div>
+        <ul>
+            <li>
+                <span class="code"><b>form</b></span> - PDF file
+            </li>
+        </ul>
 
+        <div class="subhead">RETURNS</div>
+            JSON object
+    </div>
+
+    <div class="box">
+        <h2>/form/selfreport</h2>
+        Uses <a href="https://www.pdflabs.com/tools/pdftk-server/">PDFtk Server</a>
+        to identify all of the fields in a PDF form, and then fill that form
+        with the name of the fields. Due to the format of PDF forms, checkboxes will
+        not be identified through this report.
+        <div class="subhead">SAMPLE IMPLEMENTATION</div>
+        <div class="codebox">
+            &lt;form action="pdf-tool/index.php/form/selfreport" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
+            &lt;input name="<b>form</b>" type="file"&gt;<br>
+            &lt;/form&gt;
+        </div>
+        <div class="subhead">REQUIRES</div>
+        <ul>
+            <li>
+                <span class="code"><b>form</b></span> - PDF file
+            </li>
+        </ul>
+        <div class="subhead">RETURNS</div>
+            PDF File
+    </div>
+
+    <div class="box">
     <h2>/form/upload</h2>
         Uploads a form for storage on the server.  If you have a form being using repeatedly it
         makes more sense to store it on the server.
-        <div class="subhead">Requires</div>
-            <div class="inset">
-                <span class="code">form</span> = Upload of your PDF form
-            </div>
-        <div class="subhead">Returns</div>
-            <div class="inset">
-                JSON object with {"FILENAME" : "Name of your file on the server"}.
-                To use this file in future calls, reference it by name.  For example,
-                if the filename on the server is "foo.pdf", then your form may include:
-                <span class="code">&lt;input type="hidden" name="form" value="foo.pdf"&gt;</span>
-                PDF Toolbar will note that that form does not include an uploaded file and will
-                search its local file storage for a file with the given name.
-            </div>
+        <div class="codebox">
+        &lt;form action="pdf-tool/index.php/form/upload" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
+        &lt;input name="<b>form</b>" type="file"&gt;<br>
+        &lt;/form&gt;
+        </div>
+        <div class="subhead">REQUIRES</div>
+        <ul>
+            <li>
+                <span class="code"><b>form</b></span> - PDF file
+            </li>
+        </ul>
+        <div class="subhead">RETURNS</div>
+            JSON object with {"FILENAME" : "Name of your file on the server"}.
+        <p>
+            To use this file in future calls, reference it by name.  For example,
+            if the filename on the server is "foo.pdf", then your form may include: <br>
+            <span class="code">&lt;input type="hidden" name="form" value="foo.pdf"&gt;</span><br>
+            PDF Tools will note that that form does not include an uploaded file and will
+            search its local file storage for a file with the given name.
+        </p>
+    </div>
+    <div class="box">
+        <h2>/table/extract</h2>
+        Uses <a href="https://github.com/tabulapdf/tabula-java">tabula-java</a>
+        to extract data captured in PDF tables.  Takes a PDF file and returns a JSON object.
+        <div class="subhead">SAMPLE IMPLEMENTATION</div>
+        <div class="codebox">
+            &lt;form action="pdf-tool/index.php/table/extract" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
+            &lt;input name="<b>pdf</b>" type="file"&gt;<br>
+            &lt;/form&gt;
+        </div>
+        <div class="subhead">REQUIRES</div>
+        <ul>
+            <li>
+                <span class="code"><b>pdf</b></span> - PDF file
+            </li>
+        </ul>
+        <div class="subhead">RETURNS</div>
+        JSON Object
+    </div>
 
-    <h2>Error Handling</h2>
-    If PDF Toolset is unable to process your file, it should send back a json object that looks like this:
-    <span class="code">{"ERROR" : "Message describing the error"}</span>
-
-    <h2>Client Side Notes</h2>
-    <div class="subhead">Forms:</div>
-    Be sure to include the "enctype" declaration in your form.
-    <div class="code">&lt;form method="post" enctype="multipart/form-data"&gt;</div>
+    <div class="box">
+        <h2>Code Note</h2>
+        PDF Tools looks for a file via PHP's $_FILE.  If you are sending a file via a form,
+        be sure to include the "enctype" declaration with your input declaration.
+        <div class="code">&lt;form method="post" <b>enctype="multipart/form-data"</b>&gt;</div>
+    </div>
 
 </div>
 </body>

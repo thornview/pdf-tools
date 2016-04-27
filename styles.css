@@ -1,0 +1,57 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #9bc2c2;
+}
+
+.box {
+    border: 1px solid #003333;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    /*width: 45%;*/
+    /*display: inline-block;*/
+    background-color: #fff;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+}
+
+h1, h2 {
+    font-family: "Source Code Pro", monospace;
+    color: #0d4d4d;
+}
+
+h1 {
+    text-align: center;
+}
+
+.code, .codebox {
+    font-family: 'Source Code Pro', monospace;
+    color: #226666;
+    background-color: #dedede;
+    padding: 4px;
+}
+
+.codebox {
+    padding: 15px;
+}
+
+
+.subhead {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #0d4d4d;
+}
+
+.subtle {
+    font-style: italic;
+    color: #666;
+    font-size: .9em;
+}
+
