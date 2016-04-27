@@ -6,7 +6,7 @@ namespace PdfTool;
  * Date: 3/28/2016
  * Time: 1:06 PM
  */
-class Pdf
+class PdfForms
 {
     /**
      * Returns the results of the pdftk dump_data_fields in
@@ -24,7 +24,7 @@ class Pdf
         system($cmd);
 
         $result = file_get_contents($tmpfile);
-        $f->cleanUp($tmpfile);
+        unlink($tmpfile);
 
         if (!empty($result)) {
             return $this->convertFieldList($result);
@@ -52,7 +52,7 @@ class Pdf
         $cmd .= "output " . $pdfOut;
         
         system($cmd);
-        $f->cleanUp($xmlFile);
+        unlink($xmlFile);
         return $pdfOut;
     }
 

@@ -12,7 +12,7 @@ class PdfTest extends PHPUnit_Framework_TestCase
 {
     public function testGetFieldsJson()
     {
-        $pdf = new PdfTool\Pdf();
+        $pdf = new PdfTool\PdfForms();
         $result = $pdf->getFields("./files/3a.pdf", "json");
         $expected = file_get_contents("./files/3a_fields.json");
         $this->assertSame($expected, $result);
@@ -34,7 +34,7 @@ class PdfTest extends PHPUnit_Framework_TestCase
 
     public function testfillForm()
     {
-        $p = new PdfTool\Pdf();
+        $p = new PdfTool\PdfForms();
         $data = array(
             "Name" => "Ralph the Mouse",
             "Telephone" => "Yes, we have one of those",

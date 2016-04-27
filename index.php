@@ -3,8 +3,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 define("TEMP_PATH", __DIR__ . "/temp/");
 define("FORM_PATH", __DIR__ . "/forms/");
 
-// define path to PDFtk binary, if needed
 define("PDFTK", "pdftk");
+define("TABULA", "tabula");
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -24,8 +24,11 @@ $app->post('/form/fill', function(Request $request) use($app) {
     } else {
         $file = $f->uploadFile('form');
     }
+    if (empty($file)) {
+        return PdfTool\Error::message("No file found.");
+    }
     $data = $request->get('data');
-    $p = new PdfTool\Pdf();
+    $p = new PdfTool\PdfForms();
     $result = $p->fillForm($file, $data);
     if (is_file($result)) {
         return $app->sendFile($result)
@@ -43,22 +46,22 @@ $app->post('/form/describe', function(Request $request) {
     } else {
         $file = $request->get('form');
     }
-    $p = new PdfTool\Pdf();
+    $p = new PdfTool\PdfForms();
     $json = $p->getFields($file);
-    $f->cleanUp($file);
+    unlink($file);
     return $json;
 });
 
 // ----- FORM/SELFREPORT ------------------------------------------
 $app->post('/form/selfreport', function() use($app){
     $f = new PdfTool\File();
-    $p = new PdfTool\Pdf();
+    $p = new PdfTool\PdfForms();
     $file = $f->uploadFile('form');
     if (is_file($file)) {
         $json = $p->getFields($file);
         $data = json_decode($json, true);
         if (key_exists('ERROR', $data)) {
-            return $json; // $json would be json with error message
+            return $json; // json would have error message
         } else {
             $map = array();
             foreach ($data as $entry => $detail) {
@@ -73,6 +76,18 @@ $app->post('/form/selfreport', function() use($app){
     } else {
         return $file; // $file would be json with error message
     }
+});
+
+// ----- TABLE/EXTRACT -----------------------------------------------
+$app->post('/table/extract', function(){
+    $f = new PdfTool\File();
+    $t = new PdfTool\PdfTables();
+    
+    $file = $f->uploadFile('pdf');
+    $json = $t->extractTableDataFromPdf($file);
+    
+    unlink($file);
+    return $json;
 });
 
 // ----- DOCUMENTATION ------------------------------------------------

@@ -4,15 +4,22 @@
     <title>
         ScRAtChpAd
     </title>
+    <style>
+        .box {
+            border: 1px solid #cd5c5c;
+            border-radius: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            width: 45%;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-<h1>ScRAtChpAd</h1>
+<h1>Form Interface for Debugging</h1>
 <div>
-    <button id="api">API Button</button>
-    <div id="fields"></div>
-
-    <div style="border: 1px solid #708090; border-radius: 20px; padding: 10px; margin-top: 20px">
-        <h2>Fill Form</h2>
+      <div class="box">
+        <h2>Form/Fill (upload user file)</h2>
         <?php
         $data = array(
             '0.pte.name' => "Grape Ape",
@@ -22,23 +29,15 @@
         );
         $json = htmlspecialchars(json_encode($data));
         ?>
-        <form action="http://localhost/index.php/form/fill" method="post" enctype="multipart/form-data">
+        <form action="http://localhost/pdf-tool/index.php/form/fill" method="post" enctype="multipart/form-data">
             <p><input type="file" name="form"></p>
             <input type="hidden" name="data" value="<?= $json ?>">
             <input type="submit">
         </form>
     </div>
 
-    <div style="border: 1px solid #cd5c5c; border-radius: 20px; padding: 10px;  margin-top: 20px">
-        <h2>Self Report</h2>
-        <form action="http://localhost/index.php/form/selfreport" method="post" enctype="multipart/form-data">
-            <p><input type="file" name="form"></p>
-            <input type="submit">
-        </form>
-    </div>
-
-    <div style="border: 1px solid #cd5c5c; border-radius: 20px; padding: 10px;  margin-top: 20px">
-        <h2>Merge Local File</h2>
+    <div class="box">
+        <h2>Form/Fill (using server-hosted pdf)</h2>
         <?php
         $data = array(
             '0.pte.name' => "Buster Keaton",
@@ -48,10 +47,26 @@
         );
         $json = htmlspecialchars(json_encode($data));
         ?>
-        <form action="http://localhost/index.php/form/fill" method="post">
+        <form action="http://localhost/pdf-tool/index.php/form/fill" method="post">
             <p>Form: <input type="text" name="form" value="fdp-master.pdf"></p>
             <input type="hidden" name="data" value="<?= $json ?>">
             <input type="submit">
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>Form/Selfreport</h2>
+        <form action="http://localhost/pdf-tool/index.php/form/selfreport" method="post" enctype="multipart/form-data">
+            <p><input type="file" name="form"></p>
+            <input type="submit">
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>Table/Extract</h2>
+        <form action="http://localhost/pdf-tool/index.php/table/extract" method="post" enctype="multipart/form-data">
+            <p>File: <input name="pdf" type="file"></p>
+            <input type="submit" value="Push Me">
         </form>
     </div>
 </div>

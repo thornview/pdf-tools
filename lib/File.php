@@ -2,11 +2,8 @@
 namespace PdfTool;
 
 /**
- * Manages files
- * Created by PhpStorm.
- * User: embryb
+ * Author: Bryce Embry
  * Date: 3/28/2016
- * Time: 1:09 PM
  */
 class File
 {
@@ -36,12 +33,7 @@ class File
         }
     }
 
-    /**
-     * Create a temp file
-     * @param $ext
-     * @return string
-     */
-    public function createRandomTempFile($ext)
+    public static function createRandomTempFile($ext)
     {
         if (substr($ext, 0, 1) == ".") {
             $ext = substr($ext, 1);
@@ -56,20 +48,6 @@ class File
         }
     }
 
-    /**
-     * Erases temp file
-     * @param $file
-     */
-    public function cleanUp($file)
-    {
-        unlink($file);
-    }
-
-    /**
-     * Checks mime type of file to assure it's a PDF
-     * @param $file
-     * @return bool
-     */
     public function verifyPdf($file)
     {
         $finfo = finfo_open(FILEINFO_MIME_TYPE);

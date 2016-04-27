@@ -3,10 +3,8 @@ include("../bootstrap.php");
 include("../lib/File.php");
 
 /**
- * Created by PhpStorm.
- * User: embryb
+ * Author: Bryce Embry
  * Date: 3/28/2016
- * Time: 2:18 PM
  */
 class FileTest extends PHPUnit_Framework_TestCase
 {
@@ -17,7 +15,7 @@ class FileTest extends PHPUnit_Framework_TestCase
         $result = $file->createRandomTempFile("tmp");
         $this->assertSame("fred", $result);
         $this->assertFileExists($result);
-        $file->cleanUp($result);
+        unlink($result);
         $this->assertFileNotExists($result);
 
     }
