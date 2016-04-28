@@ -35,7 +35,7 @@
             <div class="fileUpload" style="display:none">
                 <form method="post" action="../index.php/file/upload" enctype="multipart/form-data">
                     <input type="file" name="form" id="fileButton" style="font-size: 0.9em"><br>
-                    <input type="hidden" name="url" value="<?= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ?>">
+                    <input type="hidden" name="url" value="http://<?= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] ?>">
                     <input type="submit" id="submitBtn" class="uploadBtn">
                 </form>
             </div>
