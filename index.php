@@ -3,17 +3,24 @@ require_once __DIR__ . '/vendor/autoload.php';
 define("TEMP_PATH", __DIR__ . "/temp/");
 define("FORM_PATH", __DIR__ . "/forms/");
 
-define("PDFTK", "pdftk");
-define("TABULA", "tabula");
-
 use Symfony\Component\HttpFoundation\Request;
 
 $app = new Silex\Application();
 
-// ----- FORM/UPLOAD ----------------------------------------------
-$app->post('/form/upload', function() {
+// ----- FILE/UPLOAD ----------------------------------------------
+$app->post('/file/upload', function(Request $request) use ($app) {
     $f = new PdfTool\File();
-    return $f->uploadFile('form', true);
+    $f->uploadFile('form', true);
+    $url = $request->get('url');
+    return $app->redirect($url);
+});
+
+// ----- FILE/DELETE
+$app->post('/file/delete', function(Request $request) {
+    $file = $request->get('file');
+    chdir("forms");
+    unlink($file);
+    return "True";
 });
 
 //----- FORM/FILL -------------------------------------------------
@@ -90,10 +97,12 @@ $app->post('/table/extract', function(){
     return $json;
 });
 
+
 // ----- DOCUMENTATION ------------------------------------------------
 $app->get('/', function(){
     $html = file_get_contents('./public/documentation.html');
     return $html;
 });
+
 
 $app->run();

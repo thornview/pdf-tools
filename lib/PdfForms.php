@@ -19,7 +19,7 @@ class PdfForms
         $f = new File();
         $tmpfile = $f->createRandomTempFile("tmp");
 
-        $cmd = PDFTK . " " . $file . " ";
+        $cmd = "pdftk " . $file . " ";
         $cmd .= "dump_data_fields > $tmpfile";
         system($cmd);
 
@@ -47,7 +47,7 @@ class PdfForms
         $data = json_decode($json, true);
         $this->createXfdf($data, $xmlFile);
 
-        $cmd = PDFTK . " " . $pdf . " ";
+        $cmd = "pdftk " . $pdf . " ";
         $cmd .= "fill_form " . $xmlFile . " ";
         $cmd .= "output " . $pdfOut;
         

@@ -23,7 +23,7 @@ class File
             return $_FILES[$var]['tmp_name'];
         } else {
             $filename = $_FILES[$var]['name'];
-            $file = strtolower(str_replace(' ', '', $filename));
+            $file = strtolower(str_replace(' ', '_', $filename));
             $dest = FORM_PATH . $file;
             if(move_uploaded_file($_FILES[$var]['tmp_name'], $dest)) {
                 return json_encode(array("FILENAME" => $file));

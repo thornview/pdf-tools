@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<h1>PDF Toolset</h1>
+<h1>PDF Tools</h1>
 
 <div class="container">
     <p>PDF Tools provides a RESTful web API for the best freely-available PDF processing
@@ -86,31 +86,6 @@
     </div>
 
     <div class="box">
-    <h2>/form/upload</h2>
-        Uploads a form for storage on the server.  If you have a form being using repeatedly it
-        makes more sense to store it on the server.
-        <div class="codebox">
-        &lt;form action="pdf-tool/index.php/form/upload" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
-        &lt;input name="<b>form</b>" type="file"&gt;<br>
-        &lt;/form&gt;
-        </div>
-        <div class="subhead">REQUIRES</div>
-        <ul>
-            <li>
-                <span class="code"><b>form</b></span> - PDF file
-            </li>
-        </ul>
-        <div class="subhead">RETURNS</div>
-            JSON object with {"FILENAME" : "Name of your file on the server"}.
-        <p>
-            To use this file in future calls, reference it by name.  For example,
-            if the filename on the server is "foo.pdf", then your form may include: <br>
-            <span class="code">&lt;input type="hidden" name="form" value="foo.pdf"&gt;</span><br>
-            PDF Tools will note that that form does not include an uploaded file and will
-            search its local file storage for a file with the given name.
-        </p>
-    </div>
-    <div class="box">
         <h2>/table/extract</h2>
         Uses <a href="https://github.com/tabulapdf/tabula-java">tabula-java</a>
         to extract data captured in PDF tables.  Takes a PDF file and returns a JSON object.
@@ -131,9 +106,25 @@
     </div>
 
     <div class="box">
+        <h2>Storing PDF Forms</h2>
+        PDF Tools allows you to upload forms that you commonly use, in order to eliminate the
+        network overhead of constantly uploading the same form. <br>
+        Use the <a href="filemanager.php">File Manager</a> page to upload your forms.
+        Then, in your code, pass the name of the form as the value for <span class="code">form</span>.
+
+        <div class="subhead">SAMPLE IMPLMENTATION</div>
+        <div class="codebox">
+            &lt;form action="pdf-tool/index.php/form/fill" method="post"&gt;<br>
+            &lt;input name="<b>form</b>" type="hidden" value="<b>{your file name}</b>"&gt;<br>
+            &lt;input name="<b>data</b>" type="hidden" value="&lt;?php echo json_encode($data); ?&gt;"&gt;<br>
+            &lt;/form&gt;
+        </div>
+    </div>
+
+    <div class="box">
         <h2>Code Note</h2>
         PDF Tools looks for a file via PHP's $_FILE.  If you are sending a file via a form,
-        be sure to include the "enctype" declaration with your input declaration.
+        be sure to include the "enctype" declaration with your form.
         <div class="code">&lt;form method="post" <b>enctype="multipart/form-data"</b>&gt;</div>
     </div>
 

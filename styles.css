@@ -39,7 +39,6 @@ h1 {
     padding: 15px;
 }
 
-
 .subhead {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: bold;
@@ -54,4 +53,56 @@ h1 {
     color: #666;
     font-size: .9em;
 }
+
+.deleteButton, .addButton{
+    font-size: 1.5em;
+    font-family: "Source Code Pro", monospace;
+    color: #dedede;
+    font-weight:bold;
+    cursor: pointer;
+}
+
+.deleteButton:hover, .deleteWarning {
+    background-color: #feb2a8;
+    color: #802215;
+}
+
+.addButton:hover {
+    color: #106025;
+    background-color: #51a166;
+}
+
+.fileUpload {
+    background-color: #afdaba;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+.uploadBtn {
+    padding: 5px;
+    font-family: "Source Code Pro", monospace;
+    color: #106025;
+    background-color: #51a166;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 480px;
+    width: 80px;
+    text-align: center;
+    font-size: 1em;
+    border: none;
+}
+
+.uploadBtn:hover {
+    background-color: #106025;
+    color: #afdaba;
+}
+
+.fileTable {
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid #dedede;
+    padding: 10px;
+}
+
+
 
