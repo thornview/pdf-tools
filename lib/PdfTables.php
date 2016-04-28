@@ -15,7 +15,7 @@ class PdfTables
     {
         $tempFile = \PdfTool\File::createRandomTempFile('.txt');
 
-        $cmd = "java -jar /bin/tabula.jar $file -o $tempFile";
+        $cmd = "java -jar /usr/bin/tabula.jar $file -o $tempFile";
         system($cmd);
 
         $json = self::convertCsvToJson($tempFile);
