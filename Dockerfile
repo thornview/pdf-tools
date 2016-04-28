@@ -8,7 +8,6 @@ COPY lib/ /var/www/html/lib/
 COPY public/ /var/www/html/public/
 COPY temp/ /var/www/html/temp/
 COPY vendor/ /var/www/html/vendor/
-COPY tests/ /var/www/html/tests/
 
 RUN apt-get update && apt-get -y install pdftk wget
 RUN wget https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar
