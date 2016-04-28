@@ -72,7 +72,7 @@
 
     <div class="box">
         <h2>Table/Extract</h2>
-        <form action="http://<?= $_SERVER['SERVER_NAME/]?>pdf-tool/index.php/table/extract" method="post" enctype="multipart/form-data">
+        <form action="http://<?= $_SERVER['SERVER_NAME']?>/pdf-tool/index.php/table/extract" method="post" enctype="multipart/form-data">
             <p>File: <input name="pdf" type="file"></p>
             <input type="submit" value="Push Me">
         </form>
