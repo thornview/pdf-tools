@@ -9,7 +9,7 @@ COPY public/ /var/www/html/public/
 COPY temp/ /var/www/html/temp/
 COPY vendor/ /var/www/html/vendor/
 
-RUN apt-get update && apt-get -y install pdftk wget
+RUN apt-get update && apt-get -y install pdftk default-jre wget
 RUN wget https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar
 RUN mv tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar /usr/bin/tabula.jar
 RUN chmod +x /usr/bin/tabula.jar
