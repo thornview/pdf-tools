@@ -1,6 +1,20 @@
-# PDF Tool
+# PDF Tools
 
-The goal of this tool is to provide a RESTful PHP wrapper around PDF-tk, which could then be loaded into a Docker image. 
+## Description
+A RESTful web API for command-line PDF tools.  
+
+* Form manipulation via [PDFtk Server](https://www.pdflabs.com/tools/pdftk-server/)
+* Table data extraction via [tabula-java](https://github.com/tabulapdf/tabula-java)
+
+## Paths
+**/form/fill**
+**/form/describe**
+**/form/selfreport**
+**/table/extract**
+
+
+
+ 
 
 
 
