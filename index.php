@@ -10,7 +10,7 @@ $app = new Silex\Application();
 // ----- FILE/UPLOAD ----------------------------------------------
 $app->post('/file/upload', function(Request $request) use ($app) {
     $f = new PdfTool\File();
-    $f->uploadFile('form', true);
+    $f->uploadFile('file', true);
     $url = $request->get('url');
     return $app->redirect($url);
 });
@@ -20,16 +20,16 @@ $app->post('/file/delete', function(Request $request) {
     $file = $request->get('file');
     chdir("forms");
     unlink($file);
-    return "True";
+    return true;
 });
 
 //----- FORM/FILL -------------------------------------------------
 $app->post('/form/fill', function(Request $request) use($app) {
     $f = new PdfTool\File();
     if (empty($_FILES)) {
-        $file = FORM_PATH . $request->get('form');
+        $file = FORM_PATH . $request->get('file');
     } else {
-        $file = $f->uploadFile('form');
+        $file = $f->uploadFile('file');
     }
     if (empty($file)) {
         return PdfTool\Error::message("No file found.");
@@ -49,9 +49,9 @@ $app->post('/form/fill', function(Request $request) use($app) {
 $app->post('/form/describe', function(Request $request) {
     $f = new PdfTool\File();
     if (!empty($_FILES)) {
-        $file = $f->uploadFile('form');
+        $file = $f->uploadFile('file');
     } else {
-        $file = $request->get('form');
+        $file = $request->get('file');
     }
     $p = new PdfTool\PdfForms();
     $json = $p->getFields($file);
@@ -63,7 +63,7 @@ $app->post('/form/describe', function(Request $request) {
 $app->post('/form/selfreport', function() use($app){
     $f = new PdfTool\File();
     $p = new PdfTool\PdfForms();
-    $file = $f->uploadFile('form');
+    $file = $f->uploadFile('file');
     if (is_file($file)) {
         $json = $p->getFields($file);
         $data = json_decode($json, true);
@@ -90,7 +90,7 @@ $app->post('/table/extract', function(){
     $f = new PdfTool\File();
     $t = new PdfTool\PdfTables();
     
-    $file = $f->uploadFile('pdf');
+    $file = $f->uploadFile('file');
     $json = $t->extractTableDataFromPdf($file);
     
     unlink($file);

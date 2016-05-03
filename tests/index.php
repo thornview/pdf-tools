@@ -38,7 +38,7 @@
         $json = htmlspecialchars(json_encode($data));
         ?>
         <form action="http://<?= $_SERVER['SERVER_NAME']?>/pdf-tool/index.php/form/fill" method="post" enctype="multipart/form-data">
-            <p><input type="file" name="form"></p>
+            <p><input type="file" name="file"></p>
             <input type="hidden" name="data" value="<?= $json ?>">
             <input type="submit">
         </form>
@@ -56,7 +56,7 @@
         $json = htmlspecialchars(json_encode($data));
         ?>
         <form action="http://<?= $_SERVER['SERVER_NAME']?>/pdf-tool/index.php/form/fill" method="post">
-            <p>Form: <input type="text" name="form" value="fdp-master.pdf"></p>
+            <p>Form: <input type="text" name="file" value="fdp-master.pdf"></p>
             <input type="hidden" name="data" value="<?= $json ?>">
             <input type="submit">
         </form>
@@ -65,15 +65,15 @@
     <div class="box">
         <h2>Form/Selfreport</h2>
         <form action="http://<?= $_SERVER['SERVER_NAME']?>/pdf-tool/index.php/form/selfreport" method="post" enctype="multipart/form-data">
-            <p><input type="file" name="form"></p>
+            <p><input type="file" name="file"></p>
             <input type="submit">
         </form>
     </div>
 
     <div class="box">
         <h2>Table/Extract</h2>
-        <form action="http://<?= $_SERVER['SERVER_NAME']?>/index.php/table/extract" method="post" enctype="multipart/form-data">
-            <p>File: <input name="pdf" type="file"></p>
+        <form action="http://<?= $_SERVER['SERVER_NAME']?>/pdf-tool/index.php/table/extract" method="post" enctype="multipart/form-data">
+            <p>File: <input name="file" type="file"></p>
             <input type="submit" value="Push Me">
         </form>
     </div>

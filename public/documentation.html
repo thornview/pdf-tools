@@ -24,7 +24,7 @@
         <div class="subhead">SAMPLE IMPLEMENTATION</div>
         <div class="codebox">
             &lt;form action="pdf-tool/index.php/form/fill" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
-            &lt;input name="<b>form</b>" type="file"&gt;<br>
+            &lt;input name="<b>file</b>" type="file"&gt;<br>
             &lt;input name="<b>data</b>" type="hidden" value="&lt;?php echo json_encode($data); ?&gt;"&gt;<br>
             &lt;/form&gt;
         </div>
@@ -35,7 +35,7 @@
             </div>
         <div class="subhead">REQUIRES</div>
         <ul>
-            <li><span class="code"><b>form</b></span> - PDF file</li>
+            <li><span class="code"><b>file</b></span> - PDF file</li>
             <li><span class="code"><b>data</b></span> - JSON map</li>
         </ul>
         <div class="subhead">RETURNS</div>
@@ -49,13 +49,13 @@
         <div class="subhead">SAMPLE IMPLEMENTATION</div>
         <div class="codebox">
             &lt;form action="pdf-tool/index.php/form/describe" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
-            &lt;input name="<b>form</b>" type="file"&gt;<br>
+            &lt;input name="<b>file</b>" type="file"&gt;<br>
             &lt;/form&gt;
         </div>
         <div class="subhead">REQUIRES</div>
         <ul>
             <li>
-                <span class="code"><b>form</b></span> - PDF file
+                <span class="code"><b>file</b></span> - PDF file
             </li>
         </ul>
 
@@ -72,13 +72,13 @@
         <div class="subhead">SAMPLE IMPLEMENTATION</div>
         <div class="codebox">
             &lt;form action="pdf-tool/index.php/form/selfreport" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
-            &lt;input name="<b>form</b>" type="file"&gt;<br>
+            &lt;input name="<b>file</b>" type="file"&gt;<br>
             &lt;/form&gt;
         </div>
         <div class="subhead">REQUIRES</div>
         <ul>
             <li>
-                <span class="code"><b>form</b></span> - PDF file
+                <span class="code"><b>file</b></span> - PDF file
             </li>
         </ul>
         <div class="subhead">RETURNS</div>
@@ -92,13 +92,13 @@
         <div class="subhead">SAMPLE IMPLEMENTATION</div>
         <div class="codebox">
             &lt;form action="pdf-tool/index.php/table/extract" method="post" <b>enctype="multipart/form-data"</b>&gt;<br>
-            &lt;input name="<b>pdf</b>" type="file"&gt;<br>
+            &lt;input name="<b>file</b>" type="file"&gt;<br>
             &lt;/form&gt;
         </div>
         <div class="subhead">REQUIRES</div>
         <ul>
             <li>
-                <span class="code"><b>pdf</b></span> - PDF file
+                <span class="code"><b>file</b></span> - PDF file
             </li>
         </ul>
         <div class="subhead">RETURNS</div>
@@ -110,12 +110,12 @@
         PDF Tools allows you to upload forms that you commonly use, in order to eliminate the
         network overhead of constantly uploading the same form. <br>
         Use the <a href="public/filemanager.php">File Manager</a> page to upload your forms.
-        Then, in your code, pass the name of the form as the value for <span class="code">form</span>.
+        Then, in your code, pass the name of the form as the value for <span class="code">file</span>.
 
         <div class="subhead">SAMPLE IMPLMENTATION</div>
         <div class="codebox">
             &lt;form action="pdf-tool/index.php/form/fill" method="post"&gt;<br>
-            &lt;input name="<b>form</b>" type="hidden" value="<b>{your file name}</b>"&gt;<br>
+            &lt;input name="<b>file</b>" type="hidden" value="<b>{your file name}</b>"&gt;<br>
             &lt;input name="<b>data</b>" type="hidden" value="&lt;?php echo json_encode($data); ?&gt;"&gt;<br>
             &lt;/form&gt;
         </div>
